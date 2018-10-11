@@ -1,4 +1,4 @@
-function [pfOut1, pfOut2, wt, pfOut1_mean, pfOut2_mean] = particlefilter(par, y, v, r, alp, nParticle)
+function [pfOut1, pfOut2, wt, pfOut1_mean, pfOut2_mean, rho1] = particlefilter(par, y, v, r, alp, nParticle)
 
 phi1 = par(1); % AR in state of wind speed
 gam  = par(2); % constants in log wind speed
