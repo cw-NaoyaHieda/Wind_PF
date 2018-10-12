@@ -1,4 +1,4 @@
-function [pfOut1, pfOut2, wt, pfOut1_mean, pfOut2_mean] = particlefilter_reallycorrect2(par, y, v, r, alp, nParticle, resample_express)
+function [pfOut1, pfOut2, wt, pfOut1_mean, pfOut2_mean, rho1] = particlefilter_reallycorrect2(par, y, v, r, alp, nParticle, resample_express)
 
 if nargin==6
   resample_express= 1;

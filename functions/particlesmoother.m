@@ -1,11 +1,10 @@
-function [smwt] = particlefilter(phi1, pfOut1, wt)
+function [smwt] = particlesmoother(phi1, pfOut1, wt)
   [Xsize Ysize] = size(pfOut1);
   
   pfOut1 = gpuArray(pfOut1);
   wt = gpuArray(wt);
   smwt = gpuArray(wt);
   
-  %T時点のweightは変わらないのでそのまま代入
   
   
   for dt = (Xsize - 1):-1:1
