@@ -1,7 +1,4 @@
-function [pfOut1, pfOut2, wt, pfOut1_mean, pfOut2_mean] = particlefilter_reallycorrect(par, y, v, r, alp, nParticle, resample_express)
-
-if nargin==6
-  resample_express= 1;
+function [pfOut1, pfOut2, wt, pfOut1_mean, pfOut2_mean, rho1] = particlefilter_reallycorrect_notexpress(par, y, v, r, alp, nParticle)
 
 phi1 = par(1); % AR in state of wind speed
 gam  = par(2); % constants in log wind speed
@@ -54,9 +51,6 @@ wt(it,:) = wt(it,:) / sum(wt(it,:));
 wt(it,:) = wt(it,:) / sum(wt(it,:));
 N_eff(it) = 1 / (wt(it,:) * wt(it,:)');
     if  N_eff(it) < nEff
-      if resample_express == 1
-         it
-      end
       [pfOut1(it,:), pfOut2(it,:)] = Resample2(pfOut1(it,:), pfOut2(it,:), wt(it,:), nParticle);
       wt(it,:) = 1 / nParticle;
     end

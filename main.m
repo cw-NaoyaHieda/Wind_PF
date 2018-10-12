@@ -1,13 +1,13 @@
-%GPUのデバイスの数確認
+�%GPU縺?���??繝�?�う繧?��縺?��謨?��遒ｺ隱?
 %gpuDeviceCount
-%現在使用しているデバイスの確認
+%迴?��蝨?��菴?��逕ｨ縺励※縺?繧九ョ繝�?�う繧?��縺?��遒ｺ隱?
 %gpuDevice
 %seed
 addpath('functions')
 rng(1000)
 clear global;
-%ParticleFilter数
-%各パラメータ
+%ParticleFilter謨?��
+%蜷?繝代Λ繝｡繝ｼ繧?��
 N = 100;
 phi1 = 0.97; % AR in state of wind speed
 gam = 3; % constants in wind speed
@@ -17,7 +17,7 @@ rho_f =0.1; % consentration in wind direction for marginal
 V = 20;
 mu_rho = 0.5;
 sig_rho=1;
-%パラメータセット
+%繝代Λ繝｡繝ｼ繧?��繧?���??�??
 par1 = [phi1 gam mu_g mu_f rho_f V mu_rho sig_rho];
 
 %[alpha, theta, v, rho] = simulate_data(N, par1);
@@ -47,13 +47,13 @@ hold on
 plot(2:(N+1),pfOut1_mean(2:(N+1)))
 hold on
 plot(2:(N+1),sm_mean)
-csvwrite("filterdata/out1_1024really.csv",pfOut1);
-csvwrite("filterdata/out2_1024really.csv",pfOut2);
-csvwrite("filterdata/weight_1024really.csv",wt);
-csvwrite("filterdata/out1_mean_1024really.csv",pfOut1_mean(1:(N+1)));
-csvwrite("filterdata/out2_mean_1024really.csv",pfOut2_mean(1:(N+1)));
-csvwrite("filterdata/sm_mean_1024.csv",sm_mean);
-csvwrite("filterdata/smwt.csv",smwt);
+%csvwrite("filterdata/out1_1024really.csv",pfOut1);
+%csvwrite("filterdata/out2_1024really.csv",pfOut2);
+%csvwrite("filterdata/weight_1024really.csv",wt);
+%csvwrite("filterdata/out1_mean_1024really.csv",pfOut1_mean(1:(N+1)));
+%csvwrite("filterdata/out2_mean_1024really.csv",pfOut2_mean(1:(N+1)));
+%csvwrite("filterdata/sm_mean_1024.csv",sm_mean);
+%csvwrite("filterdata/smwt.csv",smwt);
 
 
 
