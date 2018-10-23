@@ -20,7 +20,7 @@ pfOut2_mean = zeros((N+1),1);
 wt = zeros((N+1), nParticle);
 rho1 = zeros((N+1), nParticle);
 
-a0 = randn(nParticle,1);
+a0 = randn(nParticle,1) * phi1;
 t0 = rwrpcauchy(nParticle, mu_f, rho_f);
 t0 = arrayfun(@(x) pi_shori(x), t0);
 

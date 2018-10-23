@@ -33,15 +33,15 @@ pfOut2_mean(1) = pfOut2(1,:) * wt(1,:)';
 N_eff = zeros(nParticle,1);
 nEff = N/10;
 
-for it = 2:(N)
+for it = 2:(N-1)
 
 pfOut1(it,:) = phi1 * pfOut1(it - 1, :) + randn(1, nParticle)*sqrt(1-phi1^2);
-rho1(it-1,:) = 0.95 * ( tanh( sig_rho * pfOut1(it-1,:) + mu_rho)+1) / 2;
-pfOut2(it,:) = arrayfun(@(x,y) r_conditional_WJ(1, x, mu_g, y, mu_f, rho_f, 1), pfOut2(it-1,:), rho1(it-1,:));
+rho1(it,:) = 0.95 * ( tanh( sig_rho * pfOut1(it,:) + mu_rho)+1) / 2;
+pfOut2(it+1,:) = arrayfun(@(x,y) r_conditional_WJ(1, x, mu_g, y, mu_f, rho_f, 1), pfOut2(it,:), rho1(it,:));
 %pfOut2(it,:) = arrayfun(@(x) pi_shori(x), pfOut2(it,:));
 %tmp1 = arrayfun(@(theta, rho_g) d_conditional_WJ(y(it-1), theta, mu_g, rho_g, mu_f, rho_f, 1), pfOut2(it-1,:), rho1(it-1,:));
-tmp1 = arrayfun(@(theta, rho_g) d_conditional_WJ(y(it), theta, mu_g, rho_g, mu_f, rho_f, 1), pfOut2(it-1,:), rho1(it-1,:));
-tmp2 = arrayfun(@(x) gampdf(v(it-1)/(gam*exp(x/2)) , V, 1/V)/(gam*exp(x/2)), pfOut1(it-1,:));
+tmp1 = arrayfun(@(theta, rho_g) d_conditional_WJ(y(it+1), theta, mu_g, rho_g, mu_f, rho_f, 1), pfOut2(it,:), rho1(it,:));
+tmp2 = arrayfun(@(x) gampdf(v(it)/(gam*exp(x/2)) , V, 1/V)/(gam*exp(x/2)), pfOut1(it,:));
 
 %wt(it,:) = (tmp1/sum(tmp1)) .* (tmp2/sum(tmp2)) .* wt(it-1,:);
 %wt(it,:) = (tmp1) .* (tmp2) .* wt(it-1,:);
