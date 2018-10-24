@@ -5,17 +5,17 @@ function [Q] = Q_calc(par, pfOut1, pfOut2, rho1, pw_weight, sm_weight, y, v)
   mu_f = par(4); % location in wind direction for marginal
   rho_f = sig(par(5)); % consentration in wind direction for marginal
   V = exp(par(6));
-  
+
   Q_state = 0;
   Q_obeserve = 0;
   first_state = 0;
-  
+
   [dT  nParticle]= size(pfOut1);
-  
+
   pfOut1 = gpuArray(pfOut1);
-  
-  
-  
+
+
+
   for dt = 2:(dT - 1)
     Q_state = Q_state + sum(sum(gpuArray(pw_weight(:,:,dt)) .* log(normpdf([pfOut1(dt,:)], [phi1 *  pfOut1(dt - 1, :)]', sqrt(1 - phi1^2)))));
     tmp1 = arrayfun(@(theta, rho_g) d_conditional_WJ(y(dt-1), theta, mu_g, rho_g, mu_f, rho_f, 1), pfOut2(dt-1,:), rho1(dt-1,:));

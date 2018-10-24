@@ -18,8 +18,10 @@ function [Q] = Q_calc_now(par, pfOut1, pfOut2, rho1, pw_weight, sm_weight, y, v)
 
   for dt = 2:(dT - 1)
     Q_state = Q_state + sum(sum(gpuArray(pw_weight(:,:,dt)) .* log(normpdf([pfOut1(dt,:)], [phi1 *  pfOut1(dt - 1, :)]', sqrt(1 - phi1^2)))));
-    tmp1 = arrayfun(@(theta, rho_g) d_conditional_WJ(y(dt-1), theta, mu_g, rho_g, mu_f, rho_f, 1), pfOut2(dt-1,:), rho1(dt-1,:));
-    tmp2 = gampdf(v(dt-1)./(gam*exp( pfOut1(dt,:) /2)) , V, 1/V) ./ (gam*exp(pfOut1(dt,:)/2));
+    %tmp1 = arrayfun(@(theta, rho_g) d_conditional_WJ(y(dt-1), theta, mu_g, rho_g, mu_f, rho_f, 1), pfOut2(dt-1,:), rho1(dt-1,:));
+    tmp1 = d_conditional_WJ(y(dt), y(dt-1), mu_g, rho1(dt-1,:), mu_f, rho_f, 1);
+    %tmp2 = gampdf(v(dt-1)./(gam*exp( pfOut1(dt,:) /2)) , V, 1/V) ./ (gam*exp(pfOut1(dt,:)/2));
+    tmp2 = gampdf(v(dt)./(gam*exp( pfOut1(dt,:) /2)) , V, 1/V) ./ (gam*exp(pfOut1(dt,:)/2));
     Q_obeserve = Q_obeserve + sm_weight(dt,:) * log(tmp1)' + sm_weight(dt,:) * log(tmp2)' ;
 
 
