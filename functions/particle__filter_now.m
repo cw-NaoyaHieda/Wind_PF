@@ -54,7 +54,7 @@ wt(it,:) = wt(it,:) / sum(wt(it,:));
 %[pfOut1(it,:), pfOut2(it,:)] = Resample2(pfOut1(it,:), pfOut2(it,:), wt(it,:), nParticle);
 N_eff(it) = gather(1 / (wt(it,:) * wt(it,:)'));
     if  N_eff(it) < nEff
-        it
+        
       [pfOut1(it,:)] = Resample3(pfOut1(it,:), wt(it,:), nParticle);
       wt(it,:) = 1 / nParticle;
     end

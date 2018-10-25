@@ -10,8 +10,8 @@ function [pw_weight] = pair_wise(phi1, filter_X, filter_weight, sm_weight)
     pw_weight = ones(N, N, dT,'gpuArray');
     filter_X = gpuArray(filter_X);
     for dt = 2:(dT - 1)
-      bunbo = filter_weight(dt - 1,:) * normpdf([filter_X(dt,:)], [phi1 *  filter_X(dt - 1, :)]', sqrt(1 - phi1));
-      pw_weight(:,:,dt) = normpdf([filter_X(dt,:)], [phi1 *  filter_X(dt - 1, :)]', sqrt(1 - phi1)) .* (filter_weight(dt - 1,:)' .* sm_weight (dt,:) ./ bunbo);
+      bunbo = filter_weight(dt - 1,:) * normpdf([filter_X(dt,:)], [phi1 *  filter_X(dt - 1, :)]', sqrt(1 - phi1^2));
+      pw_weight(:,:,dt) = normpdf([filter_X(dt,:)], [phi1 *  filter_X(dt - 1, :)]', sqrt(1 - phi1^2)) .* (filter_weight(dt - 1,:)' .* sm_weight (dt,:) ./ bunbo);
     end
   end
 
