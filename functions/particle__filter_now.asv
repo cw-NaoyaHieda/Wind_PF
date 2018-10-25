@@ -46,15 +46,14 @@ tmp1 = d_conditional_WJ(y(it+1), y(it), mu_g, rho1(it,:), mu_f, rho_f, 1);
 %tmp2 = arrayfun(@(x) gampdf(v(it)/(gam*exp(x/2)) , V, 1/V)/(gam*exp(x/2)), pfOut1(it,:));
 tmp2 = gampdf(v(it)./(gam.*exp(pfOut1(it,:)./2)) , V, 1/V)./(gam.*exp(pfOut1(it,:)./2));
 
-wt(it,:) = (tmp1/sum(tmp1)) .* (tmp2/sum(tmp2)) .* wt(it-1,:);
+%wt(it,:) = (tmp1/sum(tmp1)) .* (tmp2/sum(tmp2)) .* wt(it-1,:);
 %wt(it,:) = (tmp1) .* (tmp2) .* wt(it-1,:);
-%wt(it,:) = (tmp1) .* (tmp2) .* wt(it-1,:);
+wt(it,:) = (tmp1) .* (tmp2) .* wt(it-1,:);
 wt(it,:) = wt(it,:) / sum(wt(it,:));
 
 %[pfOut1(it,:), pfOut2(it,:)] = Resample2(pfOut1(it,:), pfOut2(it,:), wt(it,:), nParticle);
-N_eff(it) = gather(1 / (wt(it,:) * wt(it,:)'));
+N_eff(it) = gather(1 / (wt(it,:) * wt(it,:)');
     if  N_eff(it) < nEff
-        it
       [pfOut1(it,:)] = Resample3(pfOut1(it,:), wt(it,:), nParticle);
       wt(it,:) = 1 / nParticle;
     end
